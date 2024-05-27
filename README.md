@@ -11,3 +11,6 @@
 E2E Tests are available.
 To run the tests:
 npm test
+
+P.S
+Please don't mind the ugly E2E tests architecture and the absence of custom commands and page objects, we just added it for fun :))))
