@@ -4,7 +4,9 @@
   "description": "",
   "main": "solution.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cypress run",
+    "testChrome": "npx cypress run --browser chrome",
+    "testFirefox": "npx cypress run --browser firefox"
   },
   "keywords": [],
   "author": "",
