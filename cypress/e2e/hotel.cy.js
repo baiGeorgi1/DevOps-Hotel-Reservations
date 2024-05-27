@@ -1,18 +1,7 @@
 /// <reference types="cypress" />
 
-const exampleReservation = {
-    startDate: '05/29/2024',
-    endDate: '05/31/2024',
-    people: 5
-}
+const { verifySearchFunctionality, verifyOffersTab, verifyPersonalInformationTab, verifyConfirmReservationTab, verifyThankYouTab } = require("../helpers/reservationTabs.js");
 
-const convertDate = (date) => {
-    const [month, day, year] = date.split('/');
-    return `${year}-${month}-${day}`;
-};
-
-const convertedStartDate = convertDate(exampleReservation.startDate);
-const convertedEndDate = convertDate(exampleReservation.endDate);
 
 describe('Hotel reservations E2E tests', () => {
     beforeEach('Open app', () => {
@@ -45,36 +34,33 @@ describe('Hotel reservations E2E tests', () => {
             })
     })
 
-    it('Verify Reservation functionality', () => {
-        cy.get('div.search-form-content.custom-form')
-            .find('form')
-            .within(() => {
-                cy.get('#check-in').should('be.visible')
-                    .invoke('val', convertedStartDate).trigger('change')
-                    .should('have.value', convertedStartDate);
+    it('Verify Search functionality', () => {
+        verifySearchFunctionality();
+    })
 
-                cy.get('#check-out').should('be.visible')
-                    .invoke('val', convertedEndDate).trigger('change')
-                    .should('have.value', convertedEndDate);
+    it('Verify Our Offers Tab', () => {
+        verifySearchFunctionality();
+        verifyOffersTab();
+    })
 
-                cy.get('#people').should('be.visible')
-                    .type(exampleReservation.people)
-                    .should('have.value', exampleReservation.people);
+    it('Verify Personal Information Tab', () => {
+        verifySearchFunctionality();
+        verifyOffersTab();
+        verifyPersonalInformationTab();
+    })
 
-                cy.contains('button', 'Next')
-                .should('be.visible')
-                .and('be.enabled')
-                .click();
-            });
-        cy.get('div.search-form-content.custom-form')
-            .find('form')
-            .should('not.be.visible')
+    it('Verify Confirm Reservation tab', () => {
+        verifySearchFunctionality();
+        verifyOffersTab();
+        verifyPersonalInformationTab();
+        verifyConfirmReservationTab();
+    })
 
-        cy.get('div.search-result-form-content.custom-form')
-        .find('form').should('be.visible')
-        .within(() => {
-            cy.get('h3')
-            .should('contain.text', 'Our Offers');
-        })
+    it('Verify Thank you page', () => {
+        verifySearchFunctionality();
+        verifyOffersTab();
+        verifyPersonalInformationTab();
+        verifyConfirmReservationTab();
+        verifyThankYouTab();
     })
 })
